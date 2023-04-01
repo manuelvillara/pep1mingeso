@@ -18,8 +18,14 @@ public class ProveedorService {
         return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
     }
 
-    public Optional<ProveedorEntity> obtenerId(Long id){
-        return proveedorRepository.findById(id);
+    public void ingresarProveedor(Integer codigo, String nombre,Character categoria, String retencion){
+        ProveedorEntity proveedor = new ProveedorEntity();
+        proveedor.setCodigo(codigo);
+        proveedor.setNombre(nombre);
+        proveedor.setCategoria(categoria);
+        proveedor.setRetencion(retencion);
+
+        proveedorRepository.save(proveedor);
     }
 
     public ProveedorEntity obtenerPorCodigo(Integer codigo){

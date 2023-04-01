@@ -1,30 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>HOLA MUNDO</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Proveedores Listados</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <style>
+        *{
+            font-family: sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .content-table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .content-table thead tr{
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .content-table th,
+        .content-table td{
+            padding: 12px 15px;
+        }
+        .content-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+        .content-table tbody tr:nth-of-type(even){
+            background-color: #f3f3f3;
+        }
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #009879;
+        }
+        .content-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009887;
+        }
+
+    </style>
 </head>
 <body>
+<header class="header">
+    <!---
+    <div class="logo">
+        <h1>MilkStgo</h1>
+    </div>
+    -->
+    <nav>
+    </nav>
+</header>
 
-    <div class="container-sm">
-        <table class="table">
+    <div th:align = "center" class = "container my-2">
+        <h1><b> Listado de proveedores </b></h1>
+        <table th:border = "1" class = "content-table">
             <thead class="thead-dark">
                 <tr>
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Categoria</th>
+                    <th>Retencion</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr th:each="proveedores:${proveedores}">
+                    <td th:text="${proveedores.codigo}"></td>
+                    <td th:text="${proveedores.nombre}"></td>
+                    <td th:text="${proveedores.categoria}"></td>
+                    <td th:text="${proveedores.retencion}"></td>
+                    </p>
+                </tr>
+            </tbody>
         </table>
-        <tbody>
-            <tr th:each="proveedores:${proveedores}">
-                <td th:text="${proveedores.codigo}"></td>
-                <td th:text="${proveedores.nombre}"></td>
-                <td th:text="${proveedores.categoria}"></td>
-                </p>
-            </tr>
-        </tbody>
     </div>
 
 </body>
