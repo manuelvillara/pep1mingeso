@@ -36,7 +36,7 @@ public class DatosImportadosController {
 
     @GetMapping("/info-del-archivo")
     public String listarDatos(Model model){
-        ArrayList<DatosImportadosEntity> data = guardarDatos.obtenerDatos();
+        ArrayList<DatosImportadosEntity>data= guardarDatos.obtenerDatos();
         model.addAttribute("data",data);
         return "info-del-archivo";
     }

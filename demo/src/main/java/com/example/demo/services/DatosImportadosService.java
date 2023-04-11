@@ -78,6 +78,7 @@ public class DatosImportadosService {
             String temp = "";
             String bfRead;
             int count = 1;
+
             while((bfRead = bf.readLine()) != null){
                 if(count == 1){
                     count = 0;
