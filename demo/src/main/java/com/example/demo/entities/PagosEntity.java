@@ -19,21 +19,24 @@ public class PagosEntity {
     private String quincena;
     private Integer codigoProveedor;
     private String nombreProveedor;
-    private Integer totalKls;
-    private Integer diasEnvioLeche;
-    private Integer promedioDiarioKls;
-    private Integer variacionLeche;
-    private Integer variacionGrasa;
-    private Integer variacionSolidos;
-    private Integer pagoLeche;
-    private Integer pagoGrasa;
-    private Integer pagoSolidos;
-    private Integer bonificacionFrecuencia;
-    private Integer descVarLeche;
-    private Integer descVarGrasa;
-    private Integer descVarSolidos;
-    private Integer pagoTotal;
-    private Integer montoRetencion;
-    private Integer montoFinal;
+    private double totalKls;
+    private double diasEnvioLeche;
+    private double promedioDiarioKls;
+    private double variacionLeche;
+    private double porcentajeGrasa;
+    private double variacionGrasa;
+    private double porcentajeSolidos;
+    private double variacionSolidos;
+    private double pagoLeche;
+    private double pagoGrasa;
+    private double pagoSolidos;
+    private double bonificacionFrecuencia;
+    private double descVarLeche;
+    private double descVarGrasa;
+    private double descVarSolidos;
+    private double pagoTotal;
+    private double montoRetencion;
+    private double montoFinal;
+
 
 }

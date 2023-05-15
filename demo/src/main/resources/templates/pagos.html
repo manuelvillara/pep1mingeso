@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang = "es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Información Pagos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .content-table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .content-table thead tr{
+            background-color: #1645b2;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .content-table th,
+        .content-table td{
+            padding: 12px 15px;
+        }
+        .content-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+        .content-table tbody tr:nth-of-type(even){
+            background-color: #f3f3f3;
+        }
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #1645b2;
+        }
+        .content-table tbody tr.active-row{
+            font-weight: bold;
+            color: #1645b2;
+        }
+
+    </style>
+
+</head>
+<body>
+<header class="header">
+
+</header>
+<div align = "center" class = "container my-2">
+    <h1><b>Información del pago</b></h1>
+    <table border = "1" class = "content-table">
+        <thead>
+        <tr>
+            <th style = "color:white">Quincena</th>
+            <th style = "color:white">Codigo Proveedor</th>
+            <th style = "color:white">Nombre proveedor</th>
+            <th style = "color:white">Total KLS</th>
+            <th style = "color:white">Nro dias</th>
+            <th style = "color:white">Promedio KLS</th>
+            <th style = "color:white">%Variacion Leche</th>
+            <th style = "color:white">%Grasa</th>
+            <th style = "color:white">%Variacion grasa</th>
+            <th style = "color:white">%Solidos totales</th>
+            <th style = "color:white">%Variacion ST</th>
+            <th style = "color:white">Pago Leche</th>
+            <th style = "color:white">Pago Grasa</th>
+            <th style = "color:white">Pago ST</th>
+            <th style = "color:white">Bono</th>
+            <th style = "color:white">Dcto Leche</th>
+            <th style = "color:white">Dcto Grasa</th>
+            <th style = "color:white">Dcto ST</th>
+            <th style = "color:white">Pago total</th>
+            <th style = "color:white">Monto retencion</th>
+            <th style = "color:white">Monto final</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pagos:${pagos}">
+            <td th:text="${pagos.quincena}"></td>
+            <td th:text="${pagos.codigoProveedor}"></td>
+            <td th:text="${pagos.nombreProveedor}"></td>
+            <td th:text="${pagos.totalKls}"></td>
+            <td th:text="${pagos.diasEnvioLeche}"></td>
+            <td th:text="${pagos.promedioDiarioKls}"></td>
+            <td th:text="${pagos.variacionLeche}"></td>
+            <td th:text="${pagos.porcentajeGrasa}"></td>
+            <td th:text="${pagos.variacionGrasa}"></td>
+            <td th:text="${pagos.porcentajeSolidos}"></td>
+            <td th:text="${pagos.variacionSolidos}"></td>
+            <td th:text="${pagos.pagoLeche}"></td>
+            <td th:text="${pagos.pagoGrasa}"></td>
+            <td th:text="${pagos.pagoSolidos}"></td>
+            <td th:text="${pagos.bonificacionFrecuencia}"></td>
+            <td th:text="${pagos.descVarLeche}"></td>
+            <td th:text="${pagos.descVarGrasa}"></td>
+            <td th:text="${pagos.descVarSolidos}"></td>
+            <td th:text="${pagos.pagoTotal}"></td>
+            <td th:text="${pagos.montoRetencion}"></td>
+            <td th:text="${pagos.montoFinal}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
