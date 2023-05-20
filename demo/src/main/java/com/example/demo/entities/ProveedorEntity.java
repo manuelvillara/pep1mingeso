@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Me falta agregar la javax.persistence.*;
-
 @Entity
 @Table(name = "proveedor")
 @Data

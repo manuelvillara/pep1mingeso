@@ -11,6 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
+    *{
+      font-family: sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     .mainclass{
       margin-top: 20px;
       display: flex;
@@ -30,7 +36,7 @@
       box-sizing: border-box;
     }
     button {
-      background-color: #1645b2;
+      background-color: #009879;
       color: #ffffff;
       padding: 14px 0;
       margin: 10px 0;
@@ -42,9 +48,6 @@
     h1 {
       text-align:center;
     }
-    button:hover {
-      opacity: 0.8;
-    }
     .formcontainer {
       text-align: left;
       margin: 24px 50px 12px;
@@ -53,53 +56,102 @@
       padding: 16px 0;
       text-align:left;
     }
-    span.psw {
-      float: right;
-      padding-top: 0;
-      padding-right: 15px;
+    .header{
+      display: flex;
+      height: 70px;
+      background-color: #009879;
+      justify-content: space-between;
+      align-content: center;
     }
+    .empresa {
+      display: flex;
+      color: #f1f1f1;
+      font-family: sans-serif;
+      font-size: 55px;
+      font-weight: 400;
+      text-shadow: 2px 5px #000;
+    }
+    .header .btn button {
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .header .btn button:hover{
+      background-color: #e2f1f8;
+      color: #ffbc0e;
+      transform: scale(1.1);
+    }
+    .header .btn-2 button {
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .header .btn-2 button:hover {
+      background-color: #e2f1f8;
+      color: #ffbc0e;
+      transform: scale(1.1);
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
 
   </style>
 </head>
 <body>
-<header class="header">
-  <!---
-  <div class="logo">
-      <h1>MilkStgo</h1>
-  </div>
-  -->
-  <nav>
-  </nav>
-</header>
-
-<div class = "mainclass">
-  <form  th:action="@{/anadir-proveedores}" method="POST">
-    <h1><b>Ingresar Proveedor</b></h1>
-    <div class="formcontainer">
-      <hr/>
-      <div class="container">
-
-        <label><strong>Codigo</strong></label>
-        <input type="text" id = "codigo"
-               placeholder="Ingrese el código del proveedor" name="codigo" required>
-
-        <label><strong>Nombre</strong></label>
-        <input type="text" id = "nombre"
-               placeholder="Ingrese el nombre del proveedor" name="nombre" required>
-
-        <label><strong>Categoría</strong></label>
-        <input type="text" id = "categoria"
-               placeholder="Ingrese la categoria del proveedor (A / B / C / D)" name="categoria" required>
-
-        <label><strong>Retención</strong></label>
-        <input type="text" id = "retencion"
-               placeholder="Ingrese retención del proveedor (Si / No)" name="retencion" required>
-
-      </div>
-      <button type="submit">Registrar Proveedor</button>
+  <header class="header">
+    <div class="empresa">
+      <h2 class="nombre empresa">MilkStgo</h2>
     </div>
-  </form>
-</div>
+    <nav class="header-nav">
+      <a class="btn" href="/"><button>Volver al menú principal</button></a>
+      <a class="btn-2" href="/listar-proveedores"><button>Proveedores listados</button></a>
+    </nav>
+  </header>
+
+
+  <div class = "mainclass">
+    <form  th:action="@{/anadir-proveedores}" method="POST">
+      <h1><b>Ingresar Proveedor</b></h1>
+      <div class="formcontainer">
+        <hr/>
+        <div class="container">
+
+          <label><strong>Codigo</strong></label>
+          <input type="text" id = "codigo"
+                 placeholder="Ingrese el código del proveedor" name="codigo" required>
+
+          <label><strong>Nombre</strong></label>
+          <input type="text" id = "nombre"
+                 placeholder="Ingrese el nombre del proveedor" name="nombre" required>
+
+          <label><strong>Categoría</strong></label>
+          <input type="text" id = "categoria"
+                 placeholder="Ingrese la categoria del proveedor (A / B / C / D)" name="categoria" required>
+
+          <label><strong>Retención</strong></label>
+          <input type="text" id = "retencion"
+                 placeholder="Ingrese retención del proveedor (Si / No)" name="retencion" required>
+
+        </div>
+        <button type="submit">Registrar Proveedor</button>
+      </div>
+    </form>
+  </div>
 
 </body>
 </html>

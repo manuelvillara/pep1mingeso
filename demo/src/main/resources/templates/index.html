@@ -24,7 +24,7 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         }
         .content-table thead tr{
-            background-color: #1645b2;
+            background-color: #009879;
             color: #ffffff;
             text-align: left;
             font-weight: bold;
@@ -39,14 +39,73 @@
         .content-table tbody tr:nth-of-type(even){
             background-color: #f3f3f3;
         }
-
-
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #009879;
+        }
+        .content-table tbody tr.active-row{
+            font-weight: bold;
+            color: #009879;
+        }
+        .header .btn button {
+            margin-left: 20px;
+            font-weight: 700;
+            color: #1b3039;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+        .header .btn-2 button {
+            margin-left: 20px;
+            font-weight: 700;
+            color: #1b3039;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn-2 button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+        .header{
+            display: flex;
+            height: 70px;
+            background-color: #009879;
+            justify-content: space-between;
+            align-content: center;
+        }
+        .empresa {
+            display: flex;
+            color: #f1f1f1;
+            font-family: sans-serif;
+            font-size: 55px;
+            font-weight: 400;
+            text-shadow: 2px 5px #000;
+        }
     </style>
 </head>
 <body>
-<header class="header">
+    <header class="header">
+        <div class="empresa">
+            <h2 class="nombre empresa">MilkStgo</h2>
+        </div>
+        <nav>
+            <a class="btn" href="/"><button>Volver al menú principal</button></a>
+            <a class="btn-2" href="/anadir-proveedores"><button>Ingresar nuevo Proveedor</button></a>
+        </nav>
 
-</header>
+    </header>
 
     <div th:align = "center" class = "container my-2">
         <h1><b> Listado de proveedores </b></h1>

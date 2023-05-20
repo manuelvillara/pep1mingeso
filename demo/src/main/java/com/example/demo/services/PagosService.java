@@ -57,18 +57,6 @@ public class PagosService {
         }
         return datosProveedor;
 
-        /*
-        double grasa = datosProveedor.get(0).getGrasa();
-        for(int i = 0; i < datosLab.size(); i++)
-        {
-            if(datosLab.get(i).getProveedor() == codigoProveedor)
-            {
-                codigoProveedorLab = datosLab.get(i).getProveedor();
-                grasa = datosLab.get(i).getGrasa();
-            }
-        }
-         */
-
     }
 
     public double totalKlsProveedor(Integer proveedor, ArrayList<DatosImportadosEntity> datosImportados){
@@ -89,6 +77,7 @@ public class PagosService {
 
         ArrayList<DatosImportadosEntity> entregasMes = new ArrayList<>();
         for ( int i = 0 ; i < proveedorFiltrado.size(); i++){
+
             if ( ( proveedorFiltrado.get(i).getFecha().substring(5,7) ).equals(mes) ) {
                 entregasMes.add(proveedorFiltrado.get(i));
             }
@@ -134,10 +123,6 @@ public class PagosService {
         return 0;
 
     }
-
-    /*
-    ME QUEDÉ AQUI EDITANDO LOS EQUALS
-     */
 
     public Integer pagoPorKiloCategoria(ProveedorEntity proveedor){
         Character categoria = proveedor.getCategoria();
@@ -255,6 +240,7 @@ public class PagosService {
 
         ArrayList<DatosImportadosEntity> entregasMesAnterior = new ArrayList<>();
         entregasMesAnterior = entregasMismoMes( datosImportadosProveedor , mesAnterior );
+        System.out.println(entregasMesAnterior);
 
         double cantidadMesActual, cantidadMesAnterior, variacion;
         cantidadMesActual = 0; cantidadMesAnterior = 0; variacion = 0.0;
@@ -264,15 +250,22 @@ public class PagosService {
         }
 
         for (int i=0; i<entregasMesAnterior.size();i++){
-            cantidadMesAnterior = cantidadMesAnterior + entregasMesActual.get(i).getKls();
+            cantidadMesAnterior = cantidadMesAnterior + entregasMesAnterior.get(i).getKls();
         }
 
         if(cantidadMesAnterior == 0){
-            return 0;
+            return 0.0;
         }
         else{
-            variacion = -1 * ( (cantidadMesActual - cantidadMesAnterior)/cantidadMesAnterior );
-            return variacion;
+
+            if(cantidadMesActual > cantidadMesAnterior)
+            {
+                return 0.0;
+            }
+            else{
+                variacion = -1 * ( (cantidadMesActual - cantidadMesAnterior)/cantidadMesAnterior );
+                return variacion;
+            }
         }
 
     }
@@ -309,22 +302,25 @@ public class PagosService {
         }
 
         for (int i=0; i<entregasMesAnterior.size();i++){
-            cantidadMesAnterior = cantidadMesAnterior + entregasMesActual.get(i).getKls();
+            cantidadMesAnterior = cantidadMesAnterior + entregasMesAnterior.get(i).getKls();
         }
 
         if( cantidadMesActual > cantidadMesAnterior ){
             return 0.0;
-        } else{
-            variacion = -1 * ( (cantidadMesActual - cantidadMesAnterior)/cantidadMesAnterior );
+        }
+        else{
+            if(cantidadMesAnterior != 0){
+                variacion = -1 * ( (cantidadMesActual - cantidadMesAnterior)/cantidadMesAnterior );
 
-            if ( variacion >= 0 && variacion <= 8 ){
-                return 0.0;
-            } else if ( variacion >= 9 && variacion <= 25 ){
-                return 0.07;
-            } else if ( variacion >= 26 && variacion <= 45 ){
-                return 0.15;
-            } else if ( variacion >= 46 ){
-                return 0.30;
+                if ( variacion >= 0 && variacion <= 0.08 ){
+                    return 0.0;
+                } else if ( variacion >= 0.09 && variacion <= 0.25 ){
+                    return 0.07;
+                } else if ( variacion >= 0.26 && variacion <= 0.45 ){
+                    return 0.15;
+                } else if ( variacion >= 0.46 ){
+                    return 0.30;
+                }
             }
         }
 
@@ -348,7 +344,6 @@ public class PagosService {
                 }
             }
         }
-
         // si nunca encontró al proveedor en el historial de pagos, entonces no habrá variacion
         if(idMayor == -1){
             return 0;
@@ -406,13 +401,13 @@ public class PagosService {
                 double variacion;
                 variacion = -1 * ( (grasaMesActual - grasaMesPasado)/grasaMesPasado );
 
-                if ( variacion >= 0 && variacion <= 15 ){
+                if ( variacion >= 0 && variacion <= 0.15 ){
                     return 0.0;
-                } else if ( variacion >= 16 && variacion <= 25 ){
+                } else if ( variacion >= 0.16 && variacion <= 0.25 ){
                     return 0.12;
-                } else if ( variacion >= 26 && variacion <= 40 ){
+                } else if ( variacion >= 0.26 && variacion <= 0.40 ){
                     return 0.2;
-                } else if ( variacion >= 41 ){
+                } else if ( variacion >= 0.41 ){
                     return 0.3;
                 }
             }
@@ -499,13 +494,13 @@ public class PagosService {
                 double variacion;
                 variacion = -1 * ( (solidosMesActual - solidosMesPasado)/solidosMesPasado );
 
-                if ( variacion >= 0 && variacion <= 6 ){
+                if ( variacion >= 0 && variacion <= 0.06 ){
                     return 0.0;
-                } else if ( variacion >= 7 && variacion <= 12 ){
+                } else if ( variacion >= 0.07 && variacion <= 0.12 ){
                     return 0.18;
-                } else if ( variacion >= 13 && variacion <= 35 ){
+                } else if ( variacion >= 0.13 && variacion <= 0.35 ){
                     return 0.27;
-                } else if ( variacion >= 36 ){
+                } else if ( variacion >= 0.36 ){
                     return 0.45;
                 }
             }
@@ -598,8 +593,8 @@ public class PagosService {
         double pagoImpuestos = 0;
         // Se obtiene la retencion del proveedor en la base de datos
         String retencion = obtenerRetencion(proveedores,proveedor.getCodigo());
-        if ( retencion == "Si" ){
-            if( pagoTotalApagar >= 950000 ){
+        if ( retencion.equals("Si") ){
+            if( pagoTotalApagar >= 950000.0 ){
                 pagoImpuestos = pagoTotalApagar * impuesto;
                 return pagoImpuestos;
             }
@@ -656,7 +651,7 @@ public class PagosService {
                 listaNumeroDias.add( (double)acopioDelProveedor.get(i).getKls() );
             }
         }
-        double cantidadDiasEntregados = listaNumeroDias.size() - 1;
+        double cantidadDiasEntregados = listaNumeroDias.size() - 1.0;
         double acumulador = 0;
         for (int i = 0; i< listaNumeroDias.size();i++){
             acumulador = listaNumeroDias.get(i) + acumulador;
@@ -666,6 +661,7 @@ public class PagosService {
 
     }
 
+    /*
     public double pagoTotal(ProveedorEntity proveedor,
                              ArrayList<DatosImportadosEntity> todosDatosImportados,
                              ArrayList<DatosLabEntity> todosDatosLab,
@@ -691,42 +687,22 @@ public class PagosService {
         pagoPorGrasa = pagoPorGrasa(proveedor, todosDatosLab, acopioLeche);
         pagoPorSolidos = pagoPorSolidos(proveedor, todosDatosLab, acopioLeche);
 
-        // montoAcumulado = pagoPorKilo + pagoPorGrasa + pagoPorSolidos;
         pagoAcopioLeche = sumaPagosLecheGrasaSolidoMasFrecuencia(pagoPorKilo,pagoPorGrasa,pagoPorSolidos,acopioDelProveedor);
-        //pagoAcopioLeche = montoAcumulado * pagoPorFrecuencia(acopioDelProveedor);
 
-        // Estoy aqui! Tengo que sacar el mes del proveedor (donde estoy trabajando) y terminar los descuentos.
         descPorKilo = descKiloLeche(pagoAcopioLeche,proveedor,todosDatosImportados,mesActual);
         descPorGrasa = descPorGrasa(pagoAcopioLeche,proveedor,todosDatosLab,mesActual,historialPagos);
-        //descPorGrasa = pagoAcopioLeche * descGrasaRespectoMesAnterior(proveedor, todosDatosLab, mesActual, historialPagos);
-        //descPorSolidos = pagoAcopioLeche * descSolidosRespectoMesAnterior(proveedor, todosDatosLab, mesActual, historialPagos);
         descPorSolidos = descPorSolidos(pagoAcopioLeche,proveedor,todosDatosLab,mesActual,historialPagos);
 
         descuentos = descPorKilo + descPorGrasa + descPorSolidos;
-        // pagoTotalApagar = pagoAcopioLeche - descuentos;
+
         pagoTotalApagar = pagoTotalApagar(descPorKilo,descPorGrasa,descPorSolidos,pagoAcopioLeche);
-
         pagoImpuestos = retencionFinal(proveedores, proveedor, pagoTotalApagar);
-
         pagoFinal = pagoTotalApagar - pagoImpuestos;
-        /*
-        // Se obtiene la retencion del proveedor en la base de datos
-        retencion = obtenerRetencion(proveedores,proveedor.getCodigo());
-        if ( retencion == "Si" ){
-            if( pagoTotalApagar >= 950000 ){
-                pagoImpuestos = pagoTotalApagar * impuesto;
-                pagoFinal = pagoTotalApagar - pagoImpuestos;
-                return pagoFinal;
-            }
-        }
-        else{
-            // En caso de no aplicar el impuesto, el pago final nunca se modificó por lo que el monto
-            // quedó almacenado en pagoTotalApagar.
-            return pagoTotalApagar;
-        }
-         */
+
         return pagoFinal;
 
     }
+
+     */
 
 }

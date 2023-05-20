@@ -28,16 +28,4 @@ public class ProveedorService {
         proveedorRepository.save(proveedor);
     }
 
-    public ProveedorEntity obtenerPorCodigo(Integer codigo){
-        return proveedorRepository.findByCodigo(codigo);
-    }
-
-    public ProveedorEntity obtenerPorNombre(String nombre){
-        return proveedorRepository.findByNombre(nombre);
-    }
-
-    /* No se si esto es necesario o esta bueno */
-    public ProveedorEntity obtenerPorCategoria(Character categoria){
-        return proveedorRepository.findByCategoria(categoria);
-    }
 }

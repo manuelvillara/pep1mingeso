@@ -42,9 +42,6 @@ public class DatosImportadosService {
         newData.setKls(kls);
         guardarData(newData);
     }
-    public void eliminarDatos(ArrayList<DatosImportadosEntity> data){
-        datosImportadosRepository.deleteAll(data);
-    }
 
     @Generated
     public String guardar(MultipartFile file){

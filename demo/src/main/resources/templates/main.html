@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Main</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <style>
+    .btn button{
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .btn button:hover{
+      background-color: #e2f1f8;
+      color: #009879;
+      transform: matrix(1.1);
+    }
+    .btn-2 button{
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .btn-2 button:hover{
+      background-color: #e2f1f8;
+      color: #009879;
+      transform: matrix(1.1);
+    }
+    .btn-3 button{
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .btn-3 button:hover{
+      background-color: #e2f1f8;
+      color: #009879;
+      transform: matrix(1.1);
+    }
+    .btn-4 button{
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .btn-4 button:hover{
+      background-color: #e2f1f8;
+      color: #009879;
+      transform: matrix(1.1);
+    }
+    .header{
+      display: flex;
+      height: 70px;
+      background-color: #009879;
+      justify-content: space-between;
+      align-content: center;
+    }
+    .empresa {
+      display: flex;
+      color: #f1f1f1;
+      font-family: sans-serif;
+      font-size: 55px;
+      font-weight: 400;
+      text-shadow: 2px 5px #000;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="empresa">
+    <h2 class="nombre empresa">MilkStgo</h2>
+  </div>
+  <nav class="header-nav">
+
+  </nav>
+</header>
+
+<div th:align = "center" class = "container my-2">
+  <a class="btn" href="/listar-proveedores"><button>Ver proveedores</button></a>
+  <a class="btn-2" href="/subir-archivo"><button>Cargar archivo de Acopio Leche</button></a>
+  <a class="btn-3" href="/subir-archivo-lab"><button>Cargar archivo de Grasa y Solidos</button></a>
+  <a class="btn-4" href="/listar-pagos"><button>Calculo de pagos</button></a>
+</div>
+
+</body>
+</html>
