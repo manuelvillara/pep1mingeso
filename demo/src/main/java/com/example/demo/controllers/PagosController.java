@@ -32,7 +32,7 @@ public class PagosController {
     @Autowired
     private DatosImportadosService datosImportadosService;
 
-    @GetMapping("listar-pagos")
+    @GetMapping("/listar-pagos")
     public String listarPagos(Model model){
         ArrayList<PagosEntity> pagos = pagosService.obtenerTodosPagos();
         model.addAttribute("pagos", pagos);
@@ -57,78 +57,82 @@ public class PagosController {
 
             ArrayList<DatosLabEntity> listaLabProveedor = pagosService.filtrarProveedorEnLab(codigoProveedor, listaDatosLab);
 
-            PagosEntity pagoProveedor = new PagosEntity(null,"", codigoProveedor, proveedor.getNombre(),
-                    0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0);
+            if( !listaAcopioProveedor.isEmpty() & !listaLabProveedor.isEmpty() ){
 
-            String mes = listaAcopioProveedor.get(0).getFecha();
-            String mesActual = "" + mes.charAt(5) + mes.charAt(6);
+                // Si el proveedor tiene datos en acopio y en el lab, entonces se puede calcular su pago.
+                PagosEntity pagoProveedor = new PagosEntity(null,"", codigoProveedor, proveedor.getNombre(),
+                        0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0);
 
-            String quincena = listaAcopioProveedor.get(0).getFecha().substring(0, 4) + '/' + mesActual;
+                String mes = listaAcopioProveedor.get(0).getFecha();
+                String mesActual = "" + mes.charAt(5) + mes.charAt(6);
 
-            String nombreProveedor = proveedor.getNombre();
+                String quincena = listaAcopioProveedor.get(0).getFecha().substring(0, 4) + '/' + mesActual;
 
-            double totalKls = pagosService.totalKlsProveedor(codigoProveedor, listaDatosImportados);
+                String nombreProveedor = proveedor.getNombre();
 
-            double numeroDiasEnvios = pagosService.nroDiasEnvios(listaAcopioProveedor);
+                double totalKls = pagosService.totalKlsProveedor(codigoProveedor, listaDatosImportados);
 
-
-            double promedioDiario = pagosService.promedioDiarioKls(listaAcopioProveedor);
-
-            double variacionKls = pagosService.variacionKls(listaAcopioProveedor,mesActual);
+                double numeroDiasEnvios = pagosService.nroDiasEnvios(listaAcopioProveedor);
 
 
-            double grasa = listaLabProveedor.get(0).getGrasa();
+                double promedioDiario = pagosService.promedioDiarioKls(listaAcopioProveedor);
 
-            double variacionGrasa = pagosService.variacionGrasa(listaLabProveedor,historialPagos);
-
-
-            double solidos = listaLabProveedor.get(0).getSolido();
-
-            double variacionSolido = pagosService.variacionSolido(listaLabProveedor,historialPagos);
+                double variacionKls = pagosService.variacionKls(listaAcopioProveedor,mesActual);
 
 
-            double pagoPorKilo = pagosService.pagoPorLeche(proveedor, totalKls);
+                double grasa = listaLabProveedor.get(0).getGrasa();
 
-            double pagoPorGrasa = pagosService.pagoPorGrasa(proveedor, listaDatosLab, totalKls);
-
-            double pagoPorSolidos = pagosService.pagoPorSolidos(proveedor, listaDatosLab, totalKls);
-
-            double pagoPorFrecuencia = pagosService.sumaPagosLecheGrasaSolidoMasFrecuencia(pagoPorKilo,pagoPorGrasa,pagoPorSolidos,listaAcopioProveedor);
-
-            double descPorKilo = pagosService.descKiloLeche(pagoPorFrecuencia,proveedor,listaDatosImportados,mesActual);
-            double descPorGrasa = pagosService.descPorGrasa(pagoPorFrecuencia,proveedor,listaDatosLab,mesActual,historialPagos);
-            double descPorSolidos = pagosService.descPorSolidos(pagoPorFrecuencia,proveedor,listaDatosLab,mesActual,historialPagos);
-
-            double pagoTotal = pagosService.pagoTotalApagar(descPorKilo,descPorGrasa,descPorSolidos,pagoPorFrecuencia);
-            double pagoImpuestos = pagosService.retencionFinal(listaProveedores, proveedor, pagoTotal);
-            double montoFinal = pagoTotal - pagoImpuestos;
-
-            pagoProveedor.setQuincena(quincena);
-            pagoProveedor.setCodigoProveedor(codigoProveedor);
-            pagoProveedor.setNombreProveedor(nombreProveedor);
-            pagoProveedor.setTotalKls(totalKls);
-            pagoProveedor.setDiasEnvioLeche(numeroDiasEnvios);
-            pagoProveedor.setPromedioDiarioKls(promedioDiario);
-            pagoProveedor.setVariacionLeche(variacionKls);
-            pagoProveedor.setPorcentajeGrasa(grasa);
-            pagoProveedor.setVariacionGrasa(variacionGrasa);
-            pagoProveedor.setPorcentajeSolidos(solidos);
-            pagoProveedor.setVariacionSolidos(variacionSolido);
-            pagoProveedor.setPagoLeche(pagoPorKilo);
-            pagoProveedor.setPagoGrasa(pagoPorGrasa);
-            pagoProveedor.setPagoSolidos(pagoPorSolidos);
-            pagoProveedor.setBonificacionFrecuencia(pagoPorFrecuencia);
-            pagoProveedor.setDescVarLeche(descPorKilo);
-            pagoProveedor.setDescVarGrasa(descPorGrasa);
-            pagoProveedor.setDescVarSolidos(descPorSolidos);
-            pagoProveedor.setPagoTotal(pagoTotal);
-            pagoProveedor.setMontoRetencion(pagoImpuestos);
-            pagoProveedor.setMontoFinal(montoFinal);
+                double variacionGrasa = pagosService.variacionGrasa(listaLabProveedor,historialPagos);
 
 
-            pagosService.guardarPago(pagoProveedor);
+                double solidos = listaLabProveedor.get(0).getSolido();
+
+                double variacionSolido = pagosService.variacionSolido(listaLabProveedor,historialPagos);
+
+
+                double pagoPorKilo = pagosService.pagoPorLeche(proveedor, totalKls);
+
+                double pagoPorGrasa = pagosService.pagoPorGrasa(proveedor, listaDatosLab, totalKls);
+
+                double pagoPorSolidos = pagosService.pagoPorSolidos(proveedor, listaDatosLab, totalKls);
+
+                double pagoPorFrecuencia = pagosService.sumaPagosLecheGrasaSolidoMasFrecuencia(pagoPorKilo,pagoPorGrasa,pagoPorSolidos,listaAcopioProveedor);
+
+                double descPorKilo = pagosService.descKiloLeche(pagoPorFrecuencia,proveedor,listaDatosImportados,mesActual);
+                double descPorGrasa = pagosService.descPorGrasa(pagoPorFrecuencia,proveedor,listaDatosLab,mesActual,historialPagos);
+                double descPorSolidos = pagosService.descPorSolidos(pagoPorFrecuencia,proveedor,listaDatosLab,mesActual,historialPagos);
+
+                double pagoTotal = pagosService.pagoTotalApagar(descPorKilo,descPorGrasa,descPorSolidos,pagoPorFrecuencia);
+                double pagoImpuestos = pagosService.retencionFinal(listaProveedores, proveedor, pagoTotal);
+                double montoFinal = pagoTotal - pagoImpuestos;
+
+                pagoProveedor.setQuincena(quincena);
+                pagoProveedor.setCodigoProveedor(codigoProveedor);
+                pagoProveedor.setNombreProveedor(nombreProveedor);
+                pagoProveedor.setTotalKls(totalKls);
+                pagoProveedor.setDiasEnvioLeche(numeroDiasEnvios);
+                pagoProveedor.setPromedioDiarioKls(promedioDiario);
+                pagoProveedor.setVariacionLeche(variacionKls);
+                pagoProveedor.setPorcentajeGrasa(grasa);
+                pagoProveedor.setVariacionGrasa(variacionGrasa);
+                pagoProveedor.setPorcentajeSolidos(solidos);
+                pagoProveedor.setVariacionSolidos(variacionSolido);
+                pagoProveedor.setPagoLeche(pagoPorKilo);
+                pagoProveedor.setPagoGrasa(pagoPorGrasa);
+                pagoProveedor.setPagoSolidos(pagoPorSolidos);
+                pagoProveedor.setBonificacionFrecuencia(pagoPorFrecuencia);
+                pagoProveedor.setDescVarLeche(descPorKilo);
+                pagoProveedor.setDescVarGrasa(descPorGrasa);
+                pagoProveedor.setDescVarSolidos(descPorSolidos);
+                pagoProveedor.setPagoTotal(pagoTotal);
+                pagoProveedor.setMontoRetencion(pagoImpuestos);
+                pagoProveedor.setMontoFinal(montoFinal);
+
+
+                pagosService.guardarPago(pagoProveedor);
+            }
 
 
         }
