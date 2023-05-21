@@ -22,7 +22,7 @@ pipeline{
         stage("SonarQube Analysis"){
             steps{
                 dir("demo"){
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=pep1 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_f66ae40ceaa58d2ce016f61819e2e4b83d2dd35b"
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=pep1Mingeso -Dsonar.projectName='pep1Mingeso' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_3f9dff3f2a156f615963a48c754854d4b773f4de"
                 }
             }
         }
@@ -37,12 +37,10 @@ pipeline{
             steps{
                 dir("demo"){
                     withCredentials([string(credentialsId: 'dckrhubpassword', variable: 'dckpass')]) {
-                        sh "docker login -u manuelvillara -p ${dckpass}"
+                       sh "docker login -u manuelvillara -p ${dckpass}"
                     }
                     sh "docker push manuelvillara/proyecto_docker"
-
                 }
-
             }
         }
     }
