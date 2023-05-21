@@ -22,7 +22,7 @@ services:
     ports:
       - 33060:3306
   app1:
-    container_name: proyecto_docker1
+    container_name: demo1
     image: manuelvillara/proyecto_docker
     ports:
       - "8091:8090"
